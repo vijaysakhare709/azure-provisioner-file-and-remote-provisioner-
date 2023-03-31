@@ -1,0 +1,25 @@
+resource "file" {
+    source = "install.sh"
+    destination = "/home/vijay/install.sh"  #path of virtual machine
+
+connection {
+    type = "ssh"
+    user = "adminuer" # (virtual machine user name)
+    host = "10.0.2.0/24"
+    agent = ture
+ }
+}
+
+provisioner "remote-exec" {
+    inline = [
+        "chmod +x /home/vijay/install.sh",
+        "/home/vijay/install.sh > /home/vijay/install",
+    ]
+
+connection {
+    type = "ssh"
+    user = "adminuser"
+    host = "10.0.1.0/24"
+    agent = ture
+}
+}
